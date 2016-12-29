@@ -76,17 +76,17 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Public\Enum\Category.cs" />
-    <Compile Include="Public\interfacesEnum\Listener\IPlayerListener.cs" />
-    <Compile Include="Public\interfacesEnum\Listener\ITriviaListener.cs" />
-    <Compile Include="Public\interfacesEnum\Player\IPlayerPool.cs" />
-    <Compile Include="Public\interfacesEnum\Question\IQuestion.cs" />
-    <Compile Include="Public\interfacesEnum\Question\IQuestionPool.cs" />
+    <Compile Include="Public\interfaces\Listener\IPlayerListener.cs" />
+    <Compile Include="Public\interfaces\Listener\ITriviaListener.cs" />
+    <Compile Include="Public\interfaces\Player\IPlayerPool.cs" />
+    <Compile Include="Public\interfaces\Question\IQuestion.cs" />
+    <Compile Include="Public\interfaces\Question\IQuestionPool.cs" />
     <Compile Include="Public\struct\TriviaDice6.cs" />
     <Compile Include="Public\struct\GoldCoin.cs" />
     <Compile Include="ConsoleOutputProvider.cs" />
     <Compile Include="ConsoleOutput\PlayerConsoleOutput.cs" />
-    <Compile Include="Public\interfacesEnum\ITextWriterProvider.cs" />
-    <Compile Include="Public\interfacesEnum\Listener\IQuestionListener.cs" />
+    <Compile Include="Public\interfaces\ITextWriterProvider.cs" />
+    <Compile Include="Public\interfaces\Listener\IQuestionListener.cs" />
     <Compile Include="Player\PlayersPool.cs" />
     <Compile Include="ConsoleOutput\QuestionConsoleOutput.cs" />
     <Compile Include="Question\Question.cs" />
@@ -94,7 +94,7 @@
     <Compile Include="Public\struct\Square.cs" />
     <Compile Include="DependencyInjectionProvider.cs" />
     <Compile Include="Trivia.cs" />
-    <Compile Include="Public\interfacesEnum\Player\IPlayer.cs" />
+    <Compile Include="Public\interfaces\Player\IPlayer.cs" />
     <Compile Include="Player\Player.cs" />
     <Compile Include="Tests\TestWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
