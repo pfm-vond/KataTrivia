@@ -11,13 +11,20 @@ namespace Trivia_csharp
         public const int NB_MINIMUM_PLAYERS = 2;
         public const int COIN_TO_WIN = 6;
 
-        private readonly IPlayerPool Players = DependencyInjectionProvider.Builder.Resolve<IPlayerPool>();
+        private readonly IPlayerPool Players;
         
-        private readonly IQuestionPool Questions = DependencyInjectionProvider.Builder.Resolve<IQuestionPool>();
+        private readonly IQuestionPool Questions;
         
-        private readonly ITriviaListener Notify = DependencyInjectionProvider.Builder.Resolve<ITriviaListener>();
+        private readonly ITriviaObserver Notify;
 
         private Category CurrentCategory => Players.Current.Place.Category;
+
+        public Trivia(IPlayerPool players, IQuestionPool questions, ITriviaObserver observer)
+        {
+            Players = players;
+            Questions = questions;
+            Notify = observer;
+        }
 
         public void AddPlayer(string playerName)
         {

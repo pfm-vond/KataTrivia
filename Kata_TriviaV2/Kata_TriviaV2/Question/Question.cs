@@ -6,7 +6,12 @@ namespace Kata_TriviaV2
 {
     internal class Question : IQuestion
     {
-        private readonly IQuestionListener Notify = DependencyInjectionProvider.Builder.Resolve<IQuestionListener>();
+        private readonly IQuestionObserver Notify;
+
+        public Question(IQuestionObserver observer)
+        {
+            Notify = observer;
+        }
 
         public string Statement { get; set; }
 

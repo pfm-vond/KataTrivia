@@ -6,7 +6,12 @@ namespace Kata_TriviaV2
 {
     internal class Player : IPlayer
     {
-        private readonly IPlayerListener Notify = DependencyInjectionProvider.Builder.Resolve<IPlayerListener>();
+        private readonly IPlayerObserver Notify;
+
+        public Player(IPlayerObserver notify)
+        {
+            Notify = notify;
+        }
 
         private GoldCoin _purse;
 

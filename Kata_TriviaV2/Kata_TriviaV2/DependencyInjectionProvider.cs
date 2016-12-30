@@ -1,14 +1,18 @@
 ﻿using Autofac;
-using Kata_TriviaV2.Public;
 using System;
+using Trivia_csharp;
 
-namespace Kata_TriviaV2
+namespace Kata_TriviaV2.Public
 {
     public static class DependencyInjectionProvider
     {
-        private readonly static Lazy<IContainer> _builder = new Lazy<IContainer>(() => InitializeDI());
+        private static Lazy<IContainer> _builder = new Lazy<IContainer>(() => InitializeDI());
 
         public static IContainer Builder => _builder.Value;
+        
+        public static void ResetBuilder() {
+            _builder = new Lazy<IContainer>(() => InitializeDI());
+        }
 
         private static IContainer InitializeDI()
         {
@@ -17,21 +21,22 @@ namespace Kata_TriviaV2
             RegisterTriviaBinding(builder);
 
             RegisterOutputBinding(builder);
-
-            builder.RegisterType<ConsoleOutputProvider>().As<ITextWriterProvider>().SingleInstance();
             
             return builder.Build();
         }
 
         private static void RegisterOutputBinding(ContainerBuilder builder)
         {
-            builder.RegisterType<TriviaConsoleOutput>().As<ITriviaListener>().SingleInstance();
-            builder.RegisterType<PlayerConsoleOutput>().As<IPlayerListener>().SingleInstance();
-            builder.RegisterType<QuestionConsoleOutput>().As<IQuestionListener>().SingleInstance();
+            builder.RegisterType<TriviaConsoleOutput>().As<ITriviaObserver>().SingleInstance();
+            builder.RegisterType<PlayerConsoleOutput>().As<IPlayerObserver>().SingleInstance();
+            builder.RegisterType<QuestionConsoleOutput>().As<IQuestionObserver>().SingleInstance();
         }
 
         private static void RegisterTriviaBinding(ContainerBuilder builder)
         {
+            builder.RegisterType<Trivia>().AsSelf();
+            builder.RegisterInstance(Console.Out).As<System.IO.TextWriter>();
+
             RegisterPlayerBinding(builder);
             RegisterQuestionBinding(builder);
         }

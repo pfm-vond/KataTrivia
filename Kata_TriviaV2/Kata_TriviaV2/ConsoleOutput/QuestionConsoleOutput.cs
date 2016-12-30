@@ -1,21 +1,25 @@
-﻿using System;
-using Autofac;
-using Kata_TriviaV2.Public;
+﻿using Kata_TriviaV2.Public;
+using System.IO;
 
 namespace Kata_TriviaV2
 {
-    internal class QuestionConsoleOutput : IQuestionListener
+    internal class QuestionConsoleOutput : IQuestionObserver
     {
-        private readonly ITextWriterProvider Out = DependencyInjectionProvider.Builder.Resolve<ITextWriterProvider>();
+        private readonly TextWriter Out;
+
+        public QuestionConsoleOutput(TextWriter textWriter)
+        {
+            Out = textWriter;
+        }
 
         public void CorrectAnswer()
         {
-            Out.Get().WriteLine("Answer was correct!!!!");
+            Out.WriteLine("Answer was correct!!!!");
         }
 
         public void WrongAnswer()
         {
-            Out.Get().WriteLine("Question was incorrectly answered");
+            Out.WriteLine("Question was incorrectly answered");
         }
     }
 }

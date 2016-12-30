@@ -1,51 +1,55 @@
-﻿using System;
-using Autofac;
-using Kata_TriviaV2.Public;
+﻿using Kata_TriviaV2.Public;
+using System.IO;
 
 namespace Kata_TriviaV2
 {
-    class PlayerConsoleOutput : IPlayerListener
+    class PlayerConsoleOutput : IPlayerObserver
     {
-        private readonly ITextWriterProvider Out = DependencyInjectionProvider.Builder.Resolve<ITextWriterProvider>();
+        private readonly TextWriter Out;
+
+        public PlayerConsoleOutput(TextWriter textWriter)
+        {
+            Out = textWriter;
+        }
 
         public void CategoryChanged(Category category)
         {
-            Out.Get().WriteLine($"The category is {category}");
+            Out.WriteLine($"The category is {category}");
         }
 
         public void NbPlayerChangeTo(int howMany)
         {
-            Out.Get().WriteLine($"They are player number {howMany}");
+            Out.WriteLine($"They are player number {howMany}");
         }
 
         public void PlayerBreakFree(IPlayer player)
         {
-            Out.Get().WriteLine($"{player.Name} is getting out of the penalty box");
+            Out.WriteLine($"{player.Name} is getting out of the penalty box");
         }
 
         public void PlayerFailedToBreakFree(IPlayer player)
         {
-            Out.Get().WriteLine($"{player.Name} is not getting out of the penalty box");
+            Out.WriteLine($"{player.Name} is not getting out of the penalty box");
         }
 
         public void PlayerGoToPenaltyBox(IPlayer player)
         {
-            Out.Get().WriteLine($"{player.Name} was sent to the penalty box");
+            Out.WriteLine($"{player.Name} was sent to the penalty box");
         }
 
         public void PlayerMovedTo(IPlayer player)
         {
-            Out.Get().WriteLine($"{player.Name}'s new location is {player.Place}");
+            Out.WriteLine($"{player.Name}'s new location is {player.Place}");
         }
 
         public void PlayerWasAdded(IPlayer player)
         {
-            Out.Get().WriteLine($"{player.Name} was added");
+            Out.WriteLine($"{player.Name} was added");
         }
 
         public void PurseUpdated(IPlayer player)
         {
-            Console.WriteLine($"{player.Name} now has {player.Purse}");
+            Out.WriteLine($"{player.Name} now has {player.Purse}");
         }
     }
 }

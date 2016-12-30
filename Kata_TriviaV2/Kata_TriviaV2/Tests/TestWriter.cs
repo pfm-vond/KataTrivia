@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Kata_TriviaV2.Public;
+using Autofac;
+using System;
 using System.Text;
 
 namespace Trivia_csharp.Init
@@ -12,7 +14,7 @@ namespace Trivia_csharp.Init
         {
             var program = new StringBuilder();
 
-            Trivia aGame = new Trivia();
+            Trivia aGame = DependencyInjectionProvider.Builder.Resolve<Trivia>();
             program.AppendLine("Game aGame = new Game();");
 
             aGame.IsPlayable();

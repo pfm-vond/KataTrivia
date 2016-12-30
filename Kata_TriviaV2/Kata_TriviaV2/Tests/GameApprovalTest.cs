@@ -1,16 +1,23 @@
-﻿using ApprovalTests;
+﻿using Autofac;
+using ApprovalTests;
 using ApprovalTests.Reporters;
+using Kata_TriviaV2.Public;
 using NUnit.Framework;
 using System;
 using System.IO;
 using System.Text;
 using Trivia_csharp;
-
 namespace Kata_TriviaV2
 {
     [TestFixture]
     public class GameApprovalTest
     {
+        [SetUp]
+        public void SetUp()
+        {
+            DependencyInjectionProvider.ResetBuilder();
+        }
+
         [Test]
         [UseReporter(typeof(DiffReporter))]
         public void ApprovalTestStayInPenaltyBox()
@@ -53,7 +60,7 @@ namespace Kata_TriviaV2
 
         private Trivia CreateGameWith(int NbPlayers)
         {
-            Trivia aGame = new Trivia();
+            Trivia aGame = DependencyInjectionProvider.Builder.Resolve<Trivia>();
             for (int i = 0; i < NbPlayers; i++)
             {
                 aGame.AddPlayer($"Chet {i}");
@@ -68,7 +75,7 @@ namespace Kata_TriviaV2
             var output = new StringBuilder();
             Console.SetOut(new StringWriter(output));
 
-            Trivia aGame = new Trivia();
+            Trivia aGame = DependencyInjectionProvider.Builder.Resolve<Trivia>();
             aGame.AddPlayer("Chet");
 
             for (var i = 0;i<50; i++)
@@ -84,7 +91,7 @@ namespace Kata_TriviaV2
 
         public void Scenario1()
         {
-            Trivia aGame = new Trivia();
+            Trivia aGame = DependencyInjectionProvider.Builder.Resolve<Trivia>();
             aGame.IsPlayable();
             aGame.AddPlayer("Chet");
             aGame.AddPlayer("Pat");
@@ -127,7 +134,7 @@ namespace Kata_TriviaV2
         }
         public void Scenario2()
         {
-            Trivia aGame = new Trivia();
+            Trivia aGame = DependencyInjectionProvider.Builder.Resolve<Trivia>();
             aGame.IsPlayable();
             aGame.AddPlayer("Chet");
             aGame.AddPlayer("Pat");

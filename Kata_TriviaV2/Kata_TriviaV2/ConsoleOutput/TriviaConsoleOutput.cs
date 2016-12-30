@@ -1,25 +1,30 @@
 ﻿using Kata_TriviaV2.Public;
-using Autofac;
+using System.IO;
 
 namespace Kata_TriviaV2
 {
-    class TriviaConsoleOutput : ITriviaListener
+    class TriviaConsoleOutput : ITriviaObserver
     {
-        private readonly ITextWriterProvider Out = DependencyInjectionProvider.Builder.Resolve<ITextWriterProvider>();
+        private readonly TextWriter Out;
+
+        public TriviaConsoleOutput(TextWriter textWriter)
+        {
+            Out = textWriter;
+        }
 
         public void Asking(IQuestion question)
         {
-            Out.Get().WriteLine(question.Statement);
+            Out.WriteLine(question.Statement);
         }
 
         public void DiceDisplay(TriviaDice6 value)
         {
-            Out.Get().WriteLine(value.ToString());
+            Out.WriteLine(value.ToString());
         }
 
         public void TurnStartFor(IPlayer player)
         {
-            Out.Get().WriteLine($"{player.Name} is the current player");
+            Out.WriteLine($"{player.Name} is the current player");
         }
     }
 }

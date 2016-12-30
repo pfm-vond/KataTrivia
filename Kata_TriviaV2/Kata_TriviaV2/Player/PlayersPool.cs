@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using Autofac;
 using Kata_TriviaV2.Public;
 
@@ -8,10 +6,17 @@ namespace Kata_TriviaV2
 {
     class PlayerPool : IPlayerPool
     {
-        private readonly IPlayerListener Notify = DependencyInjectionProvider.Builder.Resolve<IPlayerListener>();
-
         private readonly List<IPlayer> Players = new List<IPlayer>();
-        
+        private readonly ILifetimeScope LifeTimeScope;
+
+        private readonly IPlayerObserver Notify;
+
+        public PlayerPool(IPlayerObserver notify, ILifetimeScope lifetimeInjector)
+        {
+            Notify = notify;
+            LifeTimeScope = lifetimeInjector;
+        }
+
         public IPlayer Current
         {
             get;
@@ -20,7 +25,8 @@ namespace Kata_TriviaV2
 
         public void Add(string playerName)
         {
-            var player = DependencyInjectionProvider.Builder.Resolve<IPlayer>();
+            var player = LifeTimeScope.Resolve<IPlayer>();
+            
             player.Name = playerName;
             Players.Add(player);
 

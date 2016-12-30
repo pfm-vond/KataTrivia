@@ -7,12 +7,14 @@ namespace Kata_TriviaV2
 {
     class QuestionPool : IQuestionPool
     {
-        private readonly Dictionary<Category, IEnumerator<IQuestion>> Questions = new Dictionary<Category, IEnumerator<IQuestion>>();
+        private readonly IDictionary<Category, IEnumerator<IQuestion>> Questions = new Dictionary<Category, IEnumerator<IQuestion>>();
+        private readonly ILifetimeScope LifeTimeScope;
 
         public IQuestion Current { get; private set; }
 
-        public QuestionPool()
+        public QuestionPool(ILifetimeScope lifetimeInjector)
         {
+            LifeTimeScope = lifetimeInjector;
             GenerateQuestions(Category.Pop, 50);
             GenerateQuestions(Category.Science, 50);
             GenerateQuestions(Category.Sports, 50);
@@ -55,7 +57,7 @@ namespace Kata_TriviaV2
 
         private IQuestion CreateQuestion(Category category, int i)
         {
-            var question = DependencyInjectionProvider.Builder.Resolve<IQuestion>();
+            var question = LifeTimeScope.Resolve<IQuestion>();
             question.Statement = $"{category} Question {i}";
             return question;
         }
