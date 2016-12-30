@@ -2,7 +2,7 @@
 
 namespace Kata_TriviaV2.Public
 {
-    public interface IPlayerListener
+    public interface IPlayerObserver
     {
         void PlayerMovedTo(IPlayer player);
         void PlayerFailedToBreakFree(IPlayer player);
